@@ -148,4 +148,4 @@ class MindMapAgent {
 }
 
 // 导出单例
-export const mindMapAgent = new MindMapAgent(); 
+export const mindMapAgent = new MindMapAgent();

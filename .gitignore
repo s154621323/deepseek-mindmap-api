@@ -71,4 +71,4 @@ ehthumbs.db
 Thumbs.db
 
 # Cloudflare Worker
-.wrangler/ 
+.wrangler/

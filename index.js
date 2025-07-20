@@ -50,4 +50,4 @@ app.listen(port, () => {
   console.log(`服务器运行在 http://localhost:${port}`);
   console.log('使用DeepSeek AI接口生成思维导图');
   console.log('DeepSeek API密钥已配置');
-}); 
+});

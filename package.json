@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "test": "node test-api.js"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "latest",
@@ -31,10 +32,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ai-mindmap-generator.git"
+    "url": "https://github.com/s154621323/deepseek-mindmap-api.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/ai-mindmap-generator/issues"
+    "url": "https://github.com/s154621323/deepseek-mindmap-api/issues"
   },
-  "homepage": "https://github.com/yourusername/ai-mindmap-generator#readme"
+  "homepage": "https://github.com/s154621323/deepseek-mindmap-api#readme"
 }

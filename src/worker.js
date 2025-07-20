@@ -2,7 +2,7 @@
 // 注意：这个版本移除了文件系统操作，因为Cloudflare Worker不支持
 
 export default {
-  async fetch (request, env, ctx) {
+  async fetch(request, env, ctx) {
     // 处理CORS
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -28,7 +28,7 @@ export default {
 
     try {
       const url = new URL(request.url);
-
+      
       // 处理思维导图生成请求
       if (url.pathname === '/api/generate-mindmap') {
         const body = await request.json();
@@ -46,7 +46,7 @@ export default {
 
         // 生成思维导图内容
         const result = await generateMindMap(topic, env);
-
+        
         return new Response(JSON.stringify({
           success: true,
           data: result.content,
@@ -92,7 +92,7 @@ export default {
  * @param {Object} env 环境变量
  * @returns {Promise<Object>} 返回生成结果
  */
-async function generateMindMap (topic, env) {
+async function generateMindMap(topic, env) {
   try {
     console.log('开始生成思维导图，主题:', topic);
 
@@ -111,7 +111,7 @@ async function generateMindMap (topic, env) {
 
     // 调用DeepSeek API
     const response = await callDeepSeekAPI(prompt, env.DEEPSEEK_API_KEY);
-
+    
     return {
       content: response.text,
       topic: topic
@@ -129,7 +129,7 @@ async function generateMindMap (topic, env) {
  * @param {string} apiKey API密钥
  * @returns {Promise<Object>} API响应
  */
-async function callDeepSeekAPI (prompt, apiKey) {
+async function callDeepSeekAPI(prompt, apiKey) {
   const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -157,4 +157,4 @@ async function callDeepSeekAPI (prompt, apiKey) {
   return {
     text: data.choices[0].message.content
   };
-} 
+}

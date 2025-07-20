@@ -1,20 +1,16 @@
-name = "mindmap-agent"
+name = "ai-mindmap-generator"
 main = "src/worker.js"
 compatibility_date = "2024-01-15"
 
 [env.production]
-name = "mindmap-agent"
+name = "ai-mindmap-generator"
 
 [env.staging]
-name = "mindmap-agent"
+name = "ai-mindmap-generator-staging"
 
 # 环境变量
 [vars]
 NODE_ENV = "production"
 
 # 密钥（需要在Cloudflare Dashboard中设置）
-# AWS_ACCESS_KEY_ID
-# AWS_SECRET_ACCESS_KEY
-# AWS_S3_REGION
-# AWS_S3_BUCKET
-# DEEPSEEK_API_KEY 
+# DEEPSEEK_API_KEY
