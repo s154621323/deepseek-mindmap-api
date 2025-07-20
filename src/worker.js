@@ -104,7 +104,7 @@ export default {
             success: true,
             data: {
               type: "text",
-              result: externalData
+              result: externalData.response.body.choices.message.content
             },
             timestamp: new Date().toISOString()
           }), {
