@@ -45,6 +45,57 @@ app.post('/api/generate-mindmap', async (req, res) => {
   }
 });
 
+// 添加业务生成端点
+app.post('/api/generate-business', async (req, res) => {
+  try {
+    const { query } = req.body;
+
+    if (!query) {
+      return res.status(400).json({ error: '缺少查询参数' });
+    }
+
+    // 调用外部API
+    const externalResponse = await fetch('https://mastra-ai-demo.ricardo-pangj.workers.dev/api/agents/businessAgent/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: "user",
+            content: query
+          }
+        ],
+        maxSteps: 3
+      })
+    });
+
+    if (!externalResponse.ok) {
+      throw new Error(`外部API调用失败: ${externalResponse.status}`);
+    }
+    console.log(externalResponse)
+    const externalData = await externalResponse.json();
+
+    res.json({
+      success: true,
+      data: {
+        type: "text",
+        result: externalData.response?.body?.choices?.[0]?.message?.content || externalData.text
+      },
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('调用外部API时出错:', error);
+    res.status(500).json({
+      success: false,
+      error: '外部API调用失败',
+      message: error.message
+    });
+  }
+});
+
 // 启动服务器
 app.listen(port, () => {
   console.log(`服务器运行在 http://localhost:${port}`);
