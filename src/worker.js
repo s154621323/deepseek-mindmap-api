@@ -83,7 +83,7 @@ export default {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: {
+            body: JSON.stringify({
               messages: [
                 {
                   role: "user",
@@ -91,7 +91,7 @@ export default {
                 }
               ],
               maxSteps: 3
-            }
+            })
           });
 
           if (!externalResponse.ok) {
