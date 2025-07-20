@@ -63,6 +63,73 @@ export default {
         });
       }
 
+      if (url.pathname === '/api/generate-business') {
+        const body = await request.json();
+        const { query } = body;
+
+        if (!query) {
+          return new Response(JSON.stringify({ error: '缺少查询参数' }), {
+            status: 400,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          });
+        }
+
+        try {
+          const externalResponse = await fetch('https://mastra-ai-demo.ricardo-pangj.workers.dev/api/agents/businessAgent/generate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: {
+              messages: [
+                {
+                  role: "user",
+                  content: query
+                }
+              ],
+              maxSteps: 3
+            }
+          });
+
+          if (!externalResponse.ok) {
+            throw new Error(`外部API调用失败: ${externalResponse.status}`);
+          }
+
+          const externalData = await externalResponse.json();
+
+          return new Response(JSON.stringify({
+            success: true,
+            data: {
+              type: "text",
+              result: externalData
+            },
+            timestamp: new Date().toISOString()
+          }), {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          });
+        } catch (error) {
+          console.error('调用外部API时出错:', error);
+          return new Response(JSON.stringify({
+            success: false,
+            error: '外部API调用失败',
+            message: error.message
+          }), {
+            status: 500,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          });
+        }
+      }
+
       return new Response(JSON.stringify({ error: '未找到路由' }), {
         status: 404,
         headers: {
