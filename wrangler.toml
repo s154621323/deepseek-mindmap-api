@@ -1,4 +1,4 @@
-name = "ai-mindmap-generator"
+name = "mindmap-agent"
 main = "src/worker.js"
 compatibility_date = "2024-01-15"
 
